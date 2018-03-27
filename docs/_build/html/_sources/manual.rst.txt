@@ -1,0 +1,124 @@
+
+==============
+GStore IAP SDK
+==============
+
+This is an Android library for inapp purchases in GStore based on
+https://github.com/anjlab/android-inapp-billing-v3. Make sure you have
+the latest GStore application installed on your phone (if not do it on
+https://play.gamecredits.com/. Press Download button on the left top
+corner of the page and get the link via SMS or QR-code).
+
+Getting Started
+---------------
+
+Use **GStorePurchasing** class for all interactions with our store.
+
+To initialize SDK call
+
+::
+
+    init(Context context, String base64PublicKey, IGStorePurchaseCallback gStorePurchaseCallback)
+
+implement IGStorePurchaseCallback interface to receive purchases
+callbacks.
+
+Use *queryInventory* method to fetch inapp data, sku ids should be
+passed.
+
+::
+
+    queryInventory(String[] moreItemSkus)
+
+::
+
+    queryInventory(List<String> moreItemSkus)
+
+To launch a purchase flow call.
+
+::
+
+    launchPurchaseFlow(Activity activity, String sku, int requestCode, String developerPayload)
+
+When the purchase is processed you can consume it by calling.
+
+::
+
+    consumeProduct(final String json)
+
+::
+
+    consumeProduct(final Purchase purchase)
+
+::
+
+    consumeProducts(final Purchases[] purchases)
+
+::
+
+    consumeProducts(final List<Purchase> purchases)
+
+With your main Activity override onActivityResult method and forward
+receiving callbacks to the GStorePurchasing method.
+
+::
+
+    onActivityResult(int requestCode, int resultCode, Intent data)
+
+To enable/disable logging feature use
+
+::
+
+    enableDebugLogging(boolean enabled)
+
+    enableDebugLogging(boolean enabled, String tag)
+
+To get the current status of logging call
+
+::
+
+    boolean isDebugLog()
+
+To start Rate dialog for the current application use
+
+::
+
+    openRateDialog (String packageName)
+
+IGStorePurchaseCallback class:
+
+::
+
+    Activity getActivity()
+
+::
+
+    void onBillingSupported()
+
+::
+
+    void onBillingNotSupported(String message)
+
+::
+
+    void onQueryInventorySucceeded(String message, IabResult result, Inventory inventory)
+
+::
+
+    void onQueryInventoryFailed(String message)
+
+::
+
+    void onPurchaseSucceeded(String message, IabResult result, Purchase purchase)
+
+::
+
+    void onPurchaseFailed(String message)
+
+::
+
+    void onConsumePurchaseSucceeded(String message, IabResult result, Purchase purchase)
+
+::
+
+    void onConsumePurchaseFailed(String message)
