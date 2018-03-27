@@ -16,6 +16,7 @@ Indices and tables
 ==================
 
 * :ref:`the-manual`
+* :ref:`the-faq`
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
