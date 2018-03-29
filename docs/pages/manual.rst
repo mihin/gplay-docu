@@ -22,7 +22,7 @@ Download the latest **gc-android-sdk.aar** and import it to your Android applica
 
 ::
 
-    implementation(name:'gc-android-sdk', ext:'aar')
+	implementation(name:'gc-android-sdk', ext:'aar')
 
 	
 Firstly implement **IGPlayPurchaseCallback** interface to receive purchases
@@ -36,7 +36,7 @@ For all interactions with our store you will use **GPlayPurchasing** class:
 
 ::
 
-    private GPlayPurchasing gStorePurchasing;
+	private GPlayPurchasing gStorePurchasing;
 	
 	
 Inside your main Activity onCreate use the following code to initialize SDK:
@@ -73,8 +73,8 @@ provided:
 	}
 	
 	String SKU_PREMIUM = "com.company.mygame.premium";
-    String SKU_GAS = "com.company.mygame.gas";
-    String SKU_INFINITE_GAS = "com.company.mygame.gas_infinite";
+	String SKU_GAS = "com.company.mygame.gas";
+	String SKU_INFINITE_GAS = "com.company.mygame.gas_infinite";
 
 	
 
@@ -82,13 +82,13 @@ To start a purchase use **launchPurchaseFlow** maethod:
 
 ::
 
-    public void onBuyButtonClicked(View view) {
-        try {
-            gStorePurchasing.launchPurchaseFlow(this, SKU_GAS, 10001, "payload", "externalOrderId");
-        } catch (IabHelper.IabAsyncInProgressException e) {
-            e.printStackTrace();
-        }
-    }
+	public void onBuyButtonClicked(View view) {
+		try {
+			gStorePurchasing.launchPurchaseFlow(this, SKU_GAS, 10001, "payload", "externalOrderId");
+		} catch (IabHelper.IabAsyncInProgressException e) {
+			e.printStackTrace();
+		}
+	}
 
 
 
@@ -103,7 +103,7 @@ Parameters for **launchPurchaseFlow** call are
 	* requestCode - code your Activity will be passed in onActivityResult callback
 	* developerPayload - optional payload data you will get in a success purchase callback
 	* externalOrderId - optional id of a payment transaction for external needs (analytics etc.)
-    
+	
 
 When the purchase is processed you can consume it by calling:
 
@@ -140,35 +140,35 @@ receiving callbacks to the GPlayPurchasing method.
 
 ::
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (!gStorePurchasing.onActivityResult(requestCode, resultCode, data)) {
-            super.onActivityResult(requestCode, resultCode, data);
-        } else {
-            // Not a purchasing case. Your code goes here.
-        }
-    }
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (!gStorePurchasing.onActivityResult(requestCode, resultCode, data)) {
+			super.onActivityResult(requestCode, resultCode, data);
+		} else {
+			// Not a purchasing case. Your code goes here.
+		}
+	}
 
 
 To enable/disable sdk logging use
 
 ::
 
-    enableDebugLogging(boolean enabled)
+	enableDebugLogging(boolean enabled)
 
-    enableDebugLogging(boolean enabled, String tag)
+	enableDebugLogging(boolean enabled, String tag)
 
 To get the current status of logging call
 
 ::
 
-    boolean isDebugLog()
+	boolean isDebugLog()
 
 To start Rate dialog for the current application use
 
 ::
 
-    openRateDialog (String packageName)
+	openRateDialog (String packageName)
 
 
 	
@@ -183,7 +183,7 @@ Activity getActivity()
 
 Utilitary method, just return your foreground activity like in code
 
-::    
+::	
 
 	@Override
 	public Activity getActivity() {
@@ -265,21 +265,41 @@ Use **consumeProduct** for *consumable* products, handle *unconsumable* ones
 			
 		...
 
+		
+		
+		
+*************************************
+void onPurchaseFailed(String message)
+*************************************
+
+Use the **message** parameter to find out the reason of fail.
+
+
+************************************************************************************
+void onConsumePurchaseSucceeded(String message, IabResult result, Purchase purchase)
+************************************************************************************
+
+Handle purchased and consumed products here.
+
 ::
 
-    void onPurchaseSucceeded(String message, IabResult result, Purchase purchase)
+	@Override
+	public void onConsumePurchaseSucceeded(String json, IabResult result, Purchase purchase) {
+		if (result.isSuccess()) {
+			if (purchase.getSku().equals(SKU_GAS)) {
+				// do your stuff
+			}
+		} else {
+			// handle issues
+		}
+	}
 
-::
+	
+********************************************
+void onConsumePurchaseFailed(String message)
+********************************************
 
-    void onPurchaseFailed(String message)
-
-::
-
-    void onConsumePurchaseSucceeded(String message, IabResult result, Purchase purchase)
-
-::
-
-    void onConsumePurchaseFailed(String message)
+Use the **message** parameter to find out the reason of fail. You can launch consume again or wait next **queryInventory**.
 
 	
 
@@ -287,24 +307,23 @@ Use **consumeProduct** for *consumable* products, handle *unconsumable* ones
 GPlay GameConsole
 ---------------------
 
-bla bla bla
+Coming soon..
 
 
 
-Publicating your game to GPlay
+Publication your game to GPlay
 --------------------------------
 
-bla bla bla
+Coming soon..
 
 
-Configuration and set up
+Configurations and set up
 --------------------------
 
-bla bla bla
+Coming soon..
 
 
 F.A.Q.
 ------
 
-bla bla bla
-
+Coming soon..

@@ -44,11 +44,14 @@
 <li><a class="reference internal" href="#void-onqueryinventorysucceeded-string-json-iabresult-result-inventory-inventory">void onQueryInventorySucceeded(String json, IabResult result, Inventory inventory)</a></li>
 <li><a class="reference internal" href="#void-onqueryinventoryfailed-string-message">void onQueryInventoryFailed(String message)</a></li>
 <li><a class="reference internal" href="#void-onpurchasesucceeded-string-message-iabresult-result-purchase-purchase">void onPurchaseSucceeded(String message, IabResult result, Purchase purchase)</a></li>
+<li><a class="reference internal" href="#void-onpurchasefailed-string-message">void onPurchaseFailed(String message)</a></li>
+<li><a class="reference internal" href="#void-onconsumepurchasesucceeded-string-message-iabresult-result-purchase-purchase">void onConsumePurchaseSucceeded(String message, IabResult result, Purchase purchase)</a></li>
+<li><a class="reference internal" href="#void-onconsumepurchasefailed-string-message">void onConsumePurchaseFailed(String message)</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#gplay-gameconsole">GPlay GameConsole</a></li>
-<li><a class="reference internal" href="#publicating-your-game-to-gplay">Publicating your game to GPlay</a></li>
-<li><a class="reference internal" href="#configuration-and-set-up">Configuration and set up</a></li>
+<li><a class="reference internal" href="#publication-your-game-to-gplay">Publication your game to GPlay</a></li>
+<li><a class="reference internal" href="#configurations-and-set-up">Configurations and set up</a></li>
 <li><a class="reference internal" href="#f-a-q">F.A.Q.</a></li>
 </ul>
 </li>
@@ -117,31 +120,31 @@ callbacks (you will find detailed information on the interface methods below):</
 </div>
 <p>Use <strong>queryInventory</strong> method to fetch inapp data, sku ids should be
 provided:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="nd">@Override</span>
-    <span class="n">public</span> <span class="n">void</span> <span class="n">onBillingSupported</span><span class="p">()</span> <span class="p">{</span>
-            <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">skuList</span> <span class="o">=</span> <span class="n">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
-            <span class="n">skuList</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SKU_GAS</span><span class="p">);</span>
-            <span class="n">skuList</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SKU_INFINITE_GAS</span><span class="p">);</span>
-            <span class="n">skuList</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SKU_PREMIUM</span><span class="p">);</span>
-            <span class="k">try</span> <span class="p">{</span>
-                    <span class="n">gStorePurchasing</span><span class="o">.</span><span class="n">queryInventory</span><span class="p">(</span><span class="n">skuList</span><span class="p">);</span>
-            <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">IabHelper</span><span class="o">.</span><span class="n">IabAsyncInProgressException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="n">e</span><span class="o">.</span><span class="n">printStackTrace</span><span class="p">();</span>
-            <span class="p">}</span>
-    <span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="n">public</span> <span class="n">void</span> <span class="n">onBillingSupported</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">skuList</span> <span class="o">=</span> <span class="n">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="n">skuList</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SKU_GAS</span><span class="p">);</span>
+        <span class="n">skuList</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SKU_INFINITE_GAS</span><span class="p">);</span>
+        <span class="n">skuList</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SKU_PREMIUM</span><span class="p">);</span>
+        <span class="k">try</span> <span class="p">{</span>
+                <span class="n">gStorePurchasing</span><span class="o">.</span><span class="n">queryInventory</span><span class="p">(</span><span class="n">skuList</span><span class="p">);</span>
+        <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">IabHelper</span><span class="o">.</span><span class="n">IabAsyncInProgressException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">e</span><span class="o">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+        <span class="p">}</span>
+<span class="p">}</span>
 
-    <span class="n">String</span> <span class="n">SKU_PREMIUM</span> <span class="o">=</span> <span class="s2">&quot;com.company.mygame.premium&quot;</span><span class="p">;</span>
+<span class="n">String</span> <span class="n">SKU_PREMIUM</span> <span class="o">=</span> <span class="s2">&quot;com.company.mygame.premium&quot;</span><span class="p">;</span>
 <span class="n">String</span> <span class="n">SKU_GAS</span> <span class="o">=</span> <span class="s2">&quot;com.company.mygame.gas&quot;</span><span class="p">;</span>
 <span class="n">String</span> <span class="n">SKU_INFINITE_GAS</span> <span class="o">=</span> <span class="s2">&quot;com.company.mygame.gas_infinite&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>To start a purchase use <strong>launchPurchaseFlow</strong> maethod:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">public</span> <span class="n">void</span> <span class="n">onBuyButtonClicked</span><span class="p">(</span><span class="n">View</span> <span class="n">view</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">try</span> <span class="p">{</span>
-        <span class="n">gStorePurchasing</span><span class="o">.</span><span class="n">launchPurchaseFlow</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="n">SKU_GAS</span><span class="p">,</span> <span class="mi">10001</span><span class="p">,</span> <span class="s2">&quot;payload&quot;</span><span class="p">,</span> <span class="s2">&quot;externalOrderId&quot;</span><span class="p">);</span>
-    <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">IabHelper</span><span class="o">.</span><span class="n">IabAsyncInProgressException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">e</span><span class="o">.</span><span class="n">printStackTrace</span><span class="p">();</span>
-    <span class="p">}</span>
+        <span class="k">try</span> <span class="p">{</span>
+                <span class="n">gStorePurchasing</span><span class="o">.</span><span class="n">launchPurchaseFlow</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="n">SKU_GAS</span><span class="p">,</span> <span class="mi">10001</span><span class="p">,</span> <span class="s2">&quot;payload&quot;</span><span class="p">,</span> <span class="s2">&quot;externalOrderId&quot;</span><span class="p">);</span>
+        <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">IabHelper</span><span class="o">.</span><span class="n">IabAsyncInProgressException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">e</span><span class="o">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+        <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -185,11 +188,11 @@ provided:</p>
 receiving callbacks to the GPlayPurchasing method.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>@Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (!gStorePurchasing.onActivityResult(requestCode, resultCode, data)) {
-        super.onActivityResult(requestCode, resultCode, data);
-    } else {
-        // Not a purchasing case. Your code goes here.
-    }
+        if (!gStorePurchasing.onActivityResult(requestCode, resultCode, data)) {
+                super.onActivityResult(requestCode, resultCode, data);
+        } else {
+                // Not a purchasing case. Your code goes here.
+        }
 }
 </pre></div>
 </div>
@@ -277,35 +280,47 @@ Use <strong>consumeProduct</strong> for <em>consumable</em> products, handle <em
         <span class="o">...</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onPurchaseSucceeded</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">,</span> <span class="n">IabResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">Purchase</span> <span class="n">purchase</span><span class="p">)</span>
+</div>
+<div class="section" id="void-onpurchasefailed-string-message">
+<h3>void onPurchaseFailed(String message)<a class="headerlink" href="#void-onpurchasefailed-string-message" title="Permalink to this headline">¶</a></h3>
+<p>Use the <strong>message</strong> parameter to find out the reason of fail.</p>
+</div>
+<div class="section" id="void-onconsumepurchasesucceeded-string-message-iabresult-result-purchase-purchase">
+<h3>void onConsumePurchaseSucceeded(String message, IabResult result, Purchase purchase)<a class="headerlink" href="#void-onconsumepurchasesucceeded-string-message-iabresult-result-purchase-purchase" title="Permalink to this headline">¶</a></h3>
+<p>Handle purchased and consumed products here.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="n">public</span> <span class="n">void</span> <span class="n">onConsumePurchaseSucceeded</span><span class="p">(</span><span class="n">String</span> <span class="n">json</span><span class="p">,</span> <span class="n">IabResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">Purchase</span> <span class="n">purchase</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">isSuccess</span><span class="p">())</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">purchase</span><span class="o">.</span><span class="n">getSku</span><span class="p">()</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">SKU_GAS</span><span class="p">))</span> <span class="p">{</span>
+                        <span class="o">//</span> <span class="n">do</span> <span class="n">your</span> <span class="n">stuff</span>
+                <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="o">//</span> <span class="n">handle</span> <span class="n">issues</span>
+        <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onPurchaseFailed</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">)</span>
-</pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onConsumePurchaseSucceeded</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">,</span> <span class="n">IabResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">Purchase</span> <span class="n">purchase</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onConsumePurchaseFailed</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="section" id="void-onconsumepurchasefailed-string-message">
+<h3>void onConsumePurchaseFailed(String message)<a class="headerlink" href="#void-onconsumepurchasefailed-string-message" title="Permalink to this headline">¶</a></h3>
+<p>Use the <strong>message</strong> parameter to find out the reason of fail. You can launch consume again or wait next <strong>queryInventory</strong>.</p>
 </div>
 </div>
 <div class="section" id="gplay-gameconsole">
 <h2>GPlay GameConsole<a class="headerlink" href="#gplay-gameconsole" title="Permalink to this headline">¶</a></h2>
-<p>bla bla bla</p>
+<p>Coming soon..</p>
 </div>
-<div class="section" id="publicating-your-game-to-gplay">
-<h2>Publicating your game to GPlay<a class="headerlink" href="#publicating-your-game-to-gplay" title="Permalink to this headline">¶</a></h2>
-<p>bla bla bla</p>
+<div class="section" id="publication-your-game-to-gplay">
+<h2>Publication your game to GPlay<a class="headerlink" href="#publication-your-game-to-gplay" title="Permalink to this headline">¶</a></h2>
+<p>Coming soon..</p>
 </div>
-<div class="section" id="configuration-and-set-up">
-<h2>Configuration and set up<a class="headerlink" href="#configuration-and-set-up" title="Permalink to this headline">¶</a></h2>
-<p>bla bla bla</p>
+<div class="section" id="configurations-and-set-up">
+<h2>Configurations and set up<a class="headerlink" href="#configurations-and-set-up" title="Permalink to this headline">¶</a></h2>
+<p>Coming soon..</p>
 </div>
 <div class="section" id="f-a-q">
 <h2>F.A.Q.<a class="headerlink" href="#f-a-q" title="Permalink to this headline">¶</a></h2>
-<p>bla bla bla</p>
+<p>Coming soon..</p>
 </div>
 </div>
 
