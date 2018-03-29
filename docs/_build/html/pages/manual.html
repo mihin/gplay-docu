@@ -1,145 +1,59 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!doctype html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>GPlay IAP SDK &#8212; gplay-docs-test 0.2.1 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <title>GPlay Integration Manual &#8212; gplay-docs-test 0.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-   
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
   </head><body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
-  <div class="section" id="gplay-iap-sdk">
-<span id="the-manual"></span><h1>GPlay IAP SDK<a class="headerlink" href="#gplay-iap-sdk" title="Permalink to this headline">¶</a></h1>
-<p>This is an Android library for inapp purchases in GPlay based on
-<a class="reference external" href="https://github.com/anjlab/android-inapp-billing-v3">https://github.com/anjlab/android-inapp-billing-v3</a>. Make sure you have
-the latest GPlay application installed on your phone (if not do it on
-<a class="reference external" href="https://play.gamecredits.com/">https://play.gamecredits.com/</a>. Press Download button on the left top
-corner of the page and get the link via SMS or QR-code).</p>
-<div class="section" id="getting-started">
-<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<p>Use <strong>GPlayPurchasing</strong> class for all interactions with our store.</p>
-<p>To initialize SDK call</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">init</span><span class="p">(</span><span class="n">Context</span> <span class="n">context</span><span class="p">,</span> <span class="n">String</span> <span class="n">base64PublicKey</span><span class="p">,</span> <span class="n">IGPlayPurchaseCallback</span> <span class="n">gPlayPurchaseCallback</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>implement IGPlayPurchaseCallback interface to receive purchases
-callbacks.</p>
-<p>Use <em>queryInventory</em> method to fetch inapp data, sku ids should be
-passed.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">queryInventory</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">moreItemSkus</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">queryInventory</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">moreItemSkus</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>To launch a purchase flow call.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">launchPurchaseFlow</span><span class="p">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="p">,</span> <span class="n">String</span> <span class="n">sku</span><span class="p">,</span> <span class="nb">int</span> <span class="n">requestCode</span><span class="p">,</span> <span class="n">String</span> <span class="n">developerPayload</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>When the purchase is processed you can consume it by calling.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">consumeProduct</span><span class="p">(</span><span class="n">final</span> <span class="n">String</span> <span class="n">json</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">consumeProduct</span><span class="p">(</span><span class="n">final</span> <span class="n">Purchase</span> <span class="n">purchase</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">consumeProducts</span><span class="p">(</span><span class="n">final</span> <span class="n">Purchases</span><span class="p">[]</span> <span class="n">purchases</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">consumeProducts</span><span class="p">(</span><span class="n">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Purchase</span><span class="o">&gt;</span> <span class="n">purchases</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>With your main Activity override onActivityResult method and forward
-receiving callbacks to the GPlayPurchasing method.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">onActivityResult</span><span class="p">(</span><span class="nb">int</span> <span class="n">requestCode</span><span class="p">,</span> <span class="nb">int</span> <span class="n">resultCode</span><span class="p">,</span> <span class="n">Intent</span> <span class="n">data</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>To enable/disable logging feature use</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enableDebugLogging</span><span class="p">(</span><span class="n">boolean</span> <span class="n">enabled</span><span class="p">)</span>
-
-<span class="n">enableDebugLogging</span><span class="p">(</span><span class="n">boolean</span> <span class="n">enabled</span><span class="p">,</span> <span class="n">String</span> <span class="n">tag</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>To get the current status of logging call</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">boolean</span> <span class="n">isDebugLog</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>To start Rate dialog for the current application use</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">openRateDialog</span> <span class="p">(</span><span class="n">String</span> <span class="n">packageName</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>IGPlayPurchaseCallback class:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Activity</span> <span class="n">getActivity</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onBillingSupported</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onBillingNotSupported</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onQueryInventorySucceeded</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">,</span> <span class="n">IabResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">Inventory</span> <span class="n">inventory</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onQueryInventoryFailed</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onPurchaseSucceeded</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">,</span> <span class="n">IabResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">Purchase</span> <span class="n">purchase</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onPurchaseFailed</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onConsumePurchaseSucceeded</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">,</span> <span class="n">IabResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">Purchase</span> <span class="n">purchase</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onConsumePurchaseFailed</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-
-
-          </div>
-        </div>
-      </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">gplay-docs-test 0.2.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">GPlay IAP SDK</a><ul>
+<li><a class="reference internal" href="#">GPlay Integration Manual</a><ul>
+<li><a class="reference internal" href="#gplay-iap-sdk">GPlay IAP SDK</a></li>
 <li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#purchasing-callbacks">Purchasing callbacks</a><ul>
+<li><a class="reference internal" href="#activity-getactivity">Activity getActivity()</a></li>
+<li><a class="reference internal" href="#void-onbillingsupported">void onBillingSupported()</a></li>
+<li><a class="reference internal" href="#void-onbillingnotsupported-string-message">void onBillingNotSupported(String message)</a></li>
+<li><a class="reference internal" href="#void-onqueryinventorysucceeded-string-json-iabresult-result-inventory-inventory">void onQueryInventorySucceeded(String json, IabResult result, Inventory inventory)</a></li>
+<li><a class="reference internal" href="#void-onqueryinventoryfailed-string-message">void onQueryInventoryFailed(String message)</a></li>
+<li><a class="reference internal" href="#void-onpurchasesucceeded-string-message-iabresult-result-purchase-purchase">void onPurchaseSucceeded(String message, IabResult result, Purchase purchase)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gplay-gameconsole">GPlay GameConsole</a></li>
+<li><a class="reference internal" href="#publicating-your-game-to-gplay">Publicating your game to GPlay</a></li>
+<li><a class="reference internal" href="#configuration-and-set-up">Configuration and set up</a></li>
+<li><a class="reference internal" href="#f-a-q">F.A.Q.</a></li>
 </ul>
 </li>
 </ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
+
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -161,22 +75,258 @@ receiving callbacks to the GPlayPurchasing method.</p>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="gplay-integration-manual">
+<span id="the-manual"></span><h1>GPlay Integration Manual<a class="headerlink" href="#gplay-integration-manual" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="gplay-iap-sdk">
+<h2>GPlay IAP SDK<a class="headerlink" href="#gplay-iap-sdk" title="Permalink to this headline">¶</a></h2>
+<p>This is an Android library for inapp purchases in GPlay based on
+<a class="reference external" href="https://github.com/anjlab/android-inapp-billing-v3">https://github.com/anjlab/android-inapp-billing-v3</a>. Make sure you have
+the latest GPlay application installed on your phone (if not do it on
+<a class="reference external" href="https://gplay.io/">https://gplay.io/</a>. Open and press Download Android App button).</p>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>Download the latest <strong>gc-android-sdk.aar</strong> and import it to your Android application</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">implementation</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="s1">&#39;gc-android-sdk&#39;</span><span class="p">,</span> <span class="n">ext</span><span class="p">:</span><span class="s1">&#39;aar&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Firstly implement <strong>IGPlayPurchaseCallback</strong> interface to receive purchases
+callbacks (you will find detailed information on the interface methods below):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">public</span> <span class="k">class</span> <span class="nc">MainActivity</span> <span class="n">extends</span> <span class="n">Activity</span> <span class="n">implements</span> <span class="n">IGPlayPurchaseCallback</span><span class="p">{</span>
+</pre></div>
+</div>
+<p>For all interactions with our store you will use <strong>GPlayPurchasing</strong> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">private</span> <span class="n">GPlayPurchasing</span> <span class="n">gStorePurchasing</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Inside your main Activity onCreate use the following code to initialize SDK:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gStorePurchasing</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="n">base64EncodedPublicKey</span><span class="p">,</span> <span class="n">this</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gStorePurchasing</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="n">base64EncodedPublicKey</span><span class="p">,</span> <span class="n">new</span> <span class="n">IGPlayPurchaseCallback</span><span class="p">()</span> <span class="p">{</span>
+        <span class="o">...</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Use <strong>queryInventory</strong> method to fetch inapp data, sku ids should be
+provided:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="nd">@Override</span>
+    <span class="n">public</span> <span class="n">void</span> <span class="n">onBillingSupported</span><span class="p">()</span> <span class="p">{</span>
+            <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">skuList</span> <span class="o">=</span> <span class="n">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+            <span class="n">skuList</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SKU_GAS</span><span class="p">);</span>
+            <span class="n">skuList</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SKU_INFINITE_GAS</span><span class="p">);</span>
+            <span class="n">skuList</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SKU_PREMIUM</span><span class="p">);</span>
+            <span class="k">try</span> <span class="p">{</span>
+                    <span class="n">gStorePurchasing</span><span class="o">.</span><span class="n">queryInventory</span><span class="p">(</span><span class="n">skuList</span><span class="p">);</span>
+            <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">IabHelper</span><span class="o">.</span><span class="n">IabAsyncInProgressException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">e</span><span class="o">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+            <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">String</span> <span class="n">SKU_PREMIUM</span> <span class="o">=</span> <span class="s2">&quot;com.company.mygame.premium&quot;</span><span class="p">;</span>
+<span class="n">String</span> <span class="n">SKU_GAS</span> <span class="o">=</span> <span class="s2">&quot;com.company.mygame.gas&quot;</span><span class="p">;</span>
+<span class="n">String</span> <span class="n">SKU_INFINITE_GAS</span> <span class="o">=</span> <span class="s2">&quot;com.company.mygame.gas_infinite&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>To start a purchase use <strong>launchPurchaseFlow</strong> maethod:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">public</span> <span class="n">void</span> <span class="n">onBuyButtonClicked</span><span class="p">(</span><span class="n">View</span> <span class="n">view</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="n">gStorePurchasing</span><span class="o">.</span><span class="n">launchPurchaseFlow</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="n">SKU_GAS</span><span class="p">,</span> <span class="mi">10001</span><span class="p">,</span> <span class="s2">&quot;payload&quot;</span><span class="p">,</span> <span class="s2">&quot;externalOrderId&quot;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">IabHelper</span><span class="o">.</span><span class="n">IabAsyncInProgressException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">launchPurchaseFlow</span><span class="p">(</span><span class="n">Activity</span> <span class="n">act</span><span class="p">,</span> <span class="n">String</span> <span class="n">sku</span><span class="p">,</span> <span class="nb">int</span> <span class="n">requestCode</span><span class="p">,</span> <span class="n">String</span> <span class="n">developerPayload</span><span class="p">,</span> <span class="n">String</span> <span class="n">externalOrderId</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Parameters for <strong>launchPurchaseFlow</strong> call are</p>
+<blockquote>
+<div><ul class="simple">
+<li>act - Activity context</li>
+<li>sku - product id you are to buy</li>
+<li>requestCode - code your Activity will be passed in onActivityResult callback</li>
+<li>developerPayload - optional payload data you will get in a success purchase callback</li>
+<li>externalOrderId - optional id of a payment transaction for external needs (analytics etc.)</li>
+</ul>
+</div></blockquote>
+<p>When the purchase is processed you can consume it by calling:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="n">public</span> <span class="n">void</span> <span class="n">onPurchaseSucceeded</span><span class="p">(</span><span class="n">String</span> <span class="n">json</span><span class="p">,</span> <span class="n">IabResult</span> <span class="n">iabResult</span><span class="p">,</span> <span class="n">Purchase</span> <span class="n">purchase</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">purchase</span><span class="o">.</span><span class="n">getSku</span><span class="p">()</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">SKU_GAS</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">gStorePurchasing</span><span class="o">.</span><span class="n">consumeProduct</span><span class="p">(</span><span class="n">purchase</span><span class="p">);</span>
+                <span class="o">...</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="n">public</span> <span class="n">void</span> <span class="n">onQueryInventorySucceeded</span><span class="p">(</span><span class="n">String</span> <span class="n">json</span><span class="p">,</span> <span class="n">IabResult</span> <span class="n">iabResult</span><span class="p">,</span> <span class="n">Inventory</span> <span class="n">inventory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Purchase</span><span class="o">&gt;</span> <span class="n">purchases</span> <span class="o">=</span> <span class="n">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="n">Purchase</span> <span class="n">gasPurchase</span> <span class="o">=</span> <span class="n">inventory</span><span class="o">.</span><span class="n">getPurchase</span><span class="p">(</span><span class="n">SKU_GAS</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">gasPurchase</span> <span class="o">!=</span> <span class="n">null</span> <span class="o">&amp;&amp;</span> <span class="n">verifyDeveloperPayload</span><span class="p">(</span><span class="n">gasPurchase</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">purchases</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gasPurchase</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="o">...</span>
+
+        <span class="n">gStorePurchasing</span><span class="o">.</span><span class="n">consumeProducts</span><span class="p">(</span> <span class="n">purchases</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Please use <strong>consumeProducts</strong> for bundle consumption instead of calling <strong>consumeProduct</strong> several times.</p>
+<p>Within your Activity override <strong>onActivityResult</strong> method and forward
+receiving callbacks to the GPlayPurchasing method.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (!gStorePurchasing.onActivityResult(requestCode, resultCode, data)) {
+        super.onActivityResult(requestCode, resultCode, data);
+    } else {
+        // Not a purchasing case. Your code goes here.
+    }
+}
+</pre></div>
+</div>
+<p>To enable/disable sdk logging use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enableDebugLogging</span><span class="p">(</span><span class="n">boolean</span> <span class="n">enabled</span><span class="p">)</span>
+
+<span class="n">enableDebugLogging</span><span class="p">(</span><span class="n">boolean</span> <span class="n">enabled</span><span class="p">,</span> <span class="n">String</span> <span class="n">tag</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To get the current status of logging call</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">boolean</span> <span class="n">isDebugLog</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To start Rate dialog for the current application use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">openRateDialog</span> <span class="p">(</span><span class="n">String</span> <span class="n">packageName</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="purchasing-callbacks">
+<h2>Purchasing callbacks<a class="headerlink" href="#purchasing-callbacks" title="Permalink to this headline">¶</a></h2>
+<p>IGPlayPurchaseCallback class methods</p>
+<div class="section" id="activity-getactivity">
+<h3>Activity getActivity()<a class="headerlink" href="#activity-getactivity" title="Permalink to this headline">¶</a></h3>
+<p>Utilitary method, just return your foreground activity like in code</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="n">public</span> <span class="n">Activity</span> <span class="n">getActivity</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">MainActivity</span><span class="o">.</span><span class="n">this</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="void-onbillingsupported">
+<h3>void onBillingSupported()<a class="headerlink" href="#void-onbillingsupported" title="Permalink to this headline">¶</a></h3>
+<p>Indicates successfull SDK initialization. The best place to <strong>queryInventory</strong> of your application.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="n">public</span> <span class="n">void</span> <span class="n">onBillingSupported</span><span class="p">()</span> <span class="p">{</span>
+        <span class="o">...</span>
+        <span class="n">gStorePurchasing</span><span class="o">.</span><span class="n">queryInventory</span><span class="p">(</span><span class="n">skuList</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="void-onbillingnotsupported-string-message">
+<h3>void onBillingNotSupported(String message)<a class="headerlink" href="#void-onbillingnotsupported-string-message" title="Permalink to this headline">¶</a></h3>
+<p>Handle this callback to prevent further initialization of components depending on purchases data. Use the <strong>message</strong> parameter to find out the reason of failed initializing</p>
+</div>
+<div class="section" id="void-onqueryinventorysucceeded-string-json-iabresult-result-inventory-inventory">
+<h3>void onQueryInventorySucceeded(String json, IabResult result, Inventory inventory)<a class="headerlink" href="#void-onqueryinventorysucceeded-string-json-iabresult-result-inventory-inventory" title="Permalink to this headline">¶</a></h3>
+<p>Go throw <strong>inventory</strong> to find out SKUs available for purchase, <strong>SkuDetails</strong> data, purchased unconsumed SKUs. Handle unconsumed products. Use SKU details for your needs.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="n">public</span> <span class="n">void</span> <span class="n">onQueryInventorySucceeded</span><span class="p">(</span><span class="n">String</span> <span class="n">json</span><span class="p">,</span> <span class="n">IabResult</span> <span class="n">iabResult</span><span class="p">,</span> <span class="n">Inventory</span> <span class="n">inventory</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="n">Purchase</span> <span class="n">premiumPurchase</span> <span class="o">=</span> <span class="n">inventory</span><span class="o">.</span><span class="n">getPurchase</span><span class="p">(</span><span class="n">SKU_PREMIUM</span><span class="p">);</span>
+        <span class="n">mIsPremium</span> <span class="o">=</span> <span class="p">(</span><span class="n">premiumPurchase</span> <span class="o">!=</span> <span class="n">null</span> <span class="o">&amp;&amp;</span> <span class="n">verifyDeveloperPayload</span><span class="p">(</span><span class="n">premiumPurchase</span><span class="p">));</span>
+
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Purchase</span><span class="o">&gt;</span> <span class="n">purchases</span> <span class="o">=</span> <span class="n">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="n">Purchase</span> <span class="n">gasPurchase</span> <span class="o">=</span> <span class="n">inventory</span><span class="o">.</span><span class="n">getPurchase</span><span class="p">(</span><span class="n">SKU_GAS</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">gasPurchase</span> <span class="o">!=</span> <span class="n">null</span> <span class="o">&amp;&amp;</span> <span class="n">verifyDeveloperPayload</span><span class="p">(</span><span class="n">gasPurchase</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">purchases</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gasPurchase</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="o">...</span>
+
+        <span class="n">gStorePurchasing</span><span class="o">.</span><span class="n">consumeProducts</span><span class="p">(</span><span class="n">purchases</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="void-onqueryinventoryfailed-string-message">
+<h3>void onQueryInventoryFailed(String message)<a class="headerlink" href="#void-onqueryinventoryfailed-string-message" title="Permalink to this headline">¶</a></h3>
+<p>Use the <strong>message</strong> parameter to find out the reason of fail.</p>
+</div>
+<div class="section" id="void-onpurchasesucceeded-string-message-iabresult-result-purchase-purchase">
+<h3>void onPurchaseSucceeded(String message, IabResult result, Purchase purchase)<a class="headerlink" href="#void-onpurchasesucceeded-string-message-iabresult-result-purchase-purchase" title="Permalink to this headline">¶</a></h3>
+<p>Indicates succesful finish of the purchase flow.
+Use <strong>consumeProduct</strong> for <em>consumable</em> products, handle <em>unconsumable</em> ones</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="n">public</span> <span class="n">void</span> <span class="n">onPurchaseSucceeded</span><span class="p">(</span><span class="n">String</span> <span class="n">json</span><span class="p">,</span> <span class="n">IabResult</span> <span class="n">iabResult</span><span class="p">,</span> <span class="n">Purchase</span> <span class="n">purchase</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">purchase</span><span class="o">.</span><span class="n">getSku</span><span class="p">()</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">SKU_GAS</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">gStorePurchasing</span><span class="o">.</span><span class="n">consumeProduct</span><span class="p">(</span><span class="n">purchase</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">purchase</span><span class="o">.</span><span class="n">getSku</span><span class="p">()</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">SKU_PREMIUM</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">mIsPremium</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
+
+        <span class="o">...</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onPurchaseSucceeded</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">,</span> <span class="n">IabResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">Purchase</span> <span class="n">purchase</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onPurchaseFailed</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onConsumePurchaseSucceeded</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">,</span> <span class="n">IabResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">Purchase</span> <span class="n">purchase</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">onConsumePurchaseFailed</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="gplay-gameconsole">
+<h2>GPlay GameConsole<a class="headerlink" href="#gplay-gameconsole" title="Permalink to this headline">¶</a></h2>
+<p>bla bla bla</p>
+</div>
+<div class="section" id="publicating-your-game-to-gplay">
+<h2>Publicating your game to GPlay<a class="headerlink" href="#publicating-your-game-to-gplay" title="Permalink to this headline">¶</a></h2>
+<p>bla bla bla</p>
+</div>
+<div class="section" id="configuration-and-set-up">
+<h2>Configuration and set up<a class="headerlink" href="#configuration-and-set-up" title="Permalink to this headline">¶</a></h2>
+<p>bla bla bla</p>
+</div>
+<div class="section" id="f-a-q">
+<h2>F.A.Q.<a class="headerlink" href="#f-a-q" title="Permalink to this headline">¶</a></h2>
+<p>bla bla bla</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2018, GC.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/pages/manual.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">gplay-docs-test 0.2.1 documentation</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, GC.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.2.
+    </div>
   </body>
 </html>

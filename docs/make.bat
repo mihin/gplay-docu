@@ -34,3 +34,5 @@ goto end
 
 :end
 popd
+
+start %BUILDDIR%/html/index.html
