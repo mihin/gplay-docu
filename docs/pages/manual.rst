@@ -9,10 +9,7 @@ GPlay Integration Manual
 GPlay IAP SDK	
 --------------
 
-This is an Android library for inapp purchases in GPlay based on
-https://github.com/anjlab/android-inapp-billing-v3. Make sure you have
-the latest GPlay application installed on your phone (if not do it on
-https://gplay.io/. Open and press Download Android App button).
+This is an Android library for inapp purchases in GPlay based on google inapp-billing-v3. Make sure you have the latest GPlay application installed on your phone (if not do it on https://gplay.io/. Open and press Download Android App button).
 
 
 Getting Started
@@ -20,7 +17,8 @@ Getting Started
 
 Download the latest **gc-android-sdk.aar** and import it to your Android application
 
-::
+.. code-block:: ruby
+	:caption: app/build.gradle
 
 	implementation(name:'gc-android-sdk', ext:'aar')
 
@@ -28,26 +26,26 @@ Download the latest **gc-android-sdk.aar** and import it to your Android applica
 Firstly implement **IGPlayPurchaseCallback** interface to receive purchases
 callbacks (you will find detailed information on the interface methods below):
 
-::
+.. code-block:: java
 
 	public class MainActivity extends Activity implements IGPlayPurchaseCallback{
 	
 For all interactions with our store you will use **GPlayPurchasing** class:
 
-::
+.. code-block:: java
 
 	private GPlayPurchasing gStorePurchasing;
 	
 	
 Inside your main Activity onCreate use the following code to initialize SDK:
 
-::
+.. code-block:: java
 
 	gStorePurchasing.init(this, base64EncodedPublicKey, this);
 	
 or
 	
-::
+.. code-block:: java
 	
 	gStorePurchasing.init(this, base64EncodedPublicKey, new IGPlayPurchaseCallback() {
 		...
@@ -57,7 +55,7 @@ or
 Use **queryInventory** method to fetch inapp data, sku ids should be
 provided:
 
-::
+.. code-block:: java
 
 	@Override
 	public void onBillingSupported() {
@@ -80,7 +78,7 @@ provided:
 
 To start a purchase use **launchPurchaseFlow** maethod:
 
-::
+.. code-block:: java
 
 	public void onBuyButtonClicked(View view) {
 		try {
@@ -92,7 +90,7 @@ To start a purchase use **launchPurchaseFlow** maethod:
 
 
 
-::
+.. code-block:: java
 
 	launchPurchaseFlow(Activity act, String sku, int requestCode, String developerPayload, String externalOrderId)
 
@@ -108,7 +106,7 @@ Parameters for **launchPurchaseFlow** call are
 When the purchase is processed you can consume it by calling:
 
 
-::
+.. code-block:: java
 
 	@Override
 	public void onPurchaseSucceeded(String json, IabResult iabResult, Purchase purchase) {
@@ -117,7 +115,7 @@ When the purchase is processed you can consume it by calling:
 			gStorePurchasing.consumeProduct(purchase);
 			...
 
-::
+.. code-block:: java
 
 	@Override
 	public void onQueryInventorySucceeded(String json, IabResult iabResult, Inventory inventory) {
@@ -138,7 +136,7 @@ Please use **consumeProducts** for bundle consumption instead of calling **consu
 Within your Activity override **onActivityResult** method and forward
 receiving callbacks to the GPlayPurchasing method.
 
-::
+.. code-block:: java
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -152,7 +150,7 @@ receiving callbacks to the GPlayPurchasing method.
 
 To enable/disable sdk logging use
 
-::
+.. code-block:: java
 
 	enableDebugLogging(boolean enabled)
 
@@ -160,15 +158,15 @@ To enable/disable sdk logging use
 
 To get the current status of logging call
 
-::
+.. code-block:: java
 
 	boolean isDebugLog()
 
 To start Rate dialog for the current application use
 
-::
+.. code-block:: java
 
-	openRateDialog (String packageName)
+	openRateDialog(String packageName)
 
 
 	
@@ -183,7 +181,7 @@ Activity getActivity()
 
 Utilitary method, just return your foreground activity like in code
 
-::	
+.. code-block:: java	
 
 	@Override
 	public Activity getActivity() {
@@ -197,7 +195,7 @@ void onBillingSupported()
 
 Indicates successfull SDK initialization. The best place to **queryInventory** of your application.
 
-::
+.. code-block:: java
 
 	@Override
 	public void onBillingSupported() {
@@ -218,7 +216,7 @@ void onQueryInventorySucceeded(String json, IabResult result, Inventory inventor
 
 Go throw **inventory** to find out SKUs available for purchase, **SkuDetails** data, purchased unconsumed SKUs. Handle unconsumed products. Use SKU details for your needs.
 
-::
+.. code-block:: java
 
 	@Override
 	public void onQueryInventorySucceeded(String json, IabResult iabResult, Inventory inventory) {
@@ -253,7 +251,7 @@ void onPurchaseSucceeded(String message, IabResult result, Purchase purchase)
 Indicates succesful finish of the purchase flow.
 Use **consumeProduct** for *consumable* products, handle *unconsumable* ones
 
-::
+.. code-block:: java
 
 	@Override
 	public void onPurchaseSucceeded(String json, IabResult iabResult, Purchase purchase) {
@@ -281,7 +279,7 @@ void onConsumePurchaseSucceeded(String message, IabResult result, Purchase purch
 
 Handle purchased and consumed products here.
 
-::
+.. code-block:: java
 
 	@Override
 	public void onConsumePurchaseSucceeded(String json, IabResult result, Purchase purchase) {
@@ -319,11 +317,5 @@ Coming soon..
 
 Configurations and set up
 --------------------------
-
-Coming soon..
-
-
-F.A.Q.
-------
 
 Coming soon..
