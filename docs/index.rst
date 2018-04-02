@@ -17,6 +17,7 @@ Indices and tables
 
 * :ref:`the-manual`
 * :ref:`the-faq`
+* :ref:`devconsole`
 * :ref:`search`
 
 // * :ref:`genindex`
