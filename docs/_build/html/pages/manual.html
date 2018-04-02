@@ -35,7 +35,7 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">GPlay Integration Manual</a><ul>
-<li><a class="reference internal" href="#gplay-iap-sdk">GPlay IAP SDK</a></li>
+<li><a class="reference internal" href="#gplay-iap-sdk">GPlay IAP SDK</a><ul>
 <li><a class="reference internal" href="#getting-started">Getting Started</a></li>
 <li><a class="reference internal" href="#purchasing-callbacks">Purchasing callbacks</a><ul>
 <li><a class="reference internal" href="#activity-getactivity">Activity getActivity()</a></li>
@@ -49,8 +49,8 @@
 <li><a class="reference internal" href="#void-onconsumepurchasefailed-string-message">void onConsumePurchaseFailed(String message)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#gplay-gameconsole">GPlay GameConsole</a></li>
-<li><a class="reference internal" href="#publication-your-game-to-gplay">Publication your game to GPlay</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#configurations-and-set-up">Configurations and set up</a></li>
 </ul>
 </li>
@@ -88,9 +88,8 @@
 <div class="section" id="gplay-iap-sdk">
 <h2>GPlay IAP SDK<a class="headerlink" href="#gplay-iap-sdk" title="Permalink to this headline">¶</a></h2>
 <p>This is an Android library for inapp purchases in GPlay based on google inapp-billing-v3. Make sure you have the latest GPlay application installed on your phone (if not do it on <a class="reference external" href="https://gplay.io/">https://gplay.io/</a>. Open and press Download Android App button).</p>
-</div>
 <div class="section" id="getting-started">
-<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<h3>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h3>
 <p>Download the latest <strong>gc-android-sdk.aar</strong> and import it to your Android application</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">app/build.gradle</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
@@ -211,10 +210,10 @@ receiving callbacks to the GPlayPurchasing method.</p>
 </div>
 </div>
 <div class="section" id="purchasing-callbacks">
-<h2>Purchasing callbacks<a class="headerlink" href="#purchasing-callbacks" title="Permalink to this headline">¶</a></h2>
+<h3>Purchasing callbacks<a class="headerlink" href="#purchasing-callbacks" title="Permalink to this headline">¶</a></h3>
 <p>IGPlayPurchaseCallback class methods</p>
 <div class="section" id="activity-getactivity">
-<h3>Activity getActivity()<a class="headerlink" href="#activity-getactivity" title="Permalink to this headline">¶</a></h3>
+<h4>Activity getActivity()<a class="headerlink" href="#activity-getactivity" title="Permalink to this headline">¶</a></h4>
 <p>Utilitary method, just return your foreground activity like in code</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
 <span class="kd">public</span> <span class="n">Activity</span> <span class="nf">getActivity</span><span class="o">()</span> <span class="o">{</span>
@@ -224,7 +223,7 @@ receiving callbacks to the GPlayPurchasing method.</p>
 </div>
 </div>
 <div class="section" id="void-onbillingsupported">
-<h3>void onBillingSupported()<a class="headerlink" href="#void-onbillingsupported" title="Permalink to this headline">¶</a></h3>
+<h4>void onBillingSupported()<a class="headerlink" href="#void-onbillingsupported" title="Permalink to this headline">¶</a></h4>
 <p>Indicates successfull SDK initialization. The best place to <strong>queryInventory</strong> of your application.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onBillingSupported</span><span class="o">()</span> <span class="o">{</span>
@@ -235,11 +234,11 @@ receiving callbacks to the GPlayPurchasing method.</p>
 </div>
 </div>
 <div class="section" id="void-onbillingnotsupported-string-message">
-<h3>void onBillingNotSupported(String message)<a class="headerlink" href="#void-onbillingnotsupported-string-message" title="Permalink to this headline">¶</a></h3>
+<h4>void onBillingNotSupported(String message)<a class="headerlink" href="#void-onbillingnotsupported-string-message" title="Permalink to this headline">¶</a></h4>
 <p>Handle this callback to prevent further initialization of components depending on purchases data. Use the <strong>message</strong> parameter to find out the reason of failed initializing</p>
 </div>
 <div class="section" id="void-onqueryinventorysucceeded-string-json-iabresult-result-inventory-inventory">
-<h3>void onQueryInventorySucceeded(String json, IabResult result, Inventory inventory)<a class="headerlink" href="#void-onqueryinventorysucceeded-string-json-iabresult-result-inventory-inventory" title="Permalink to this headline">¶</a></h3>
+<h4>void onQueryInventorySucceeded(String json, IabResult result, Inventory inventory)<a class="headerlink" href="#void-onqueryinventorysucceeded-string-json-iabresult-result-inventory-inventory" title="Permalink to this headline">¶</a></h4>
 <p>Go throw <strong>inventory</strong> to find out SKUs available for purchase, <strong>SkuDetails</strong> data, purchased unconsumed SKUs. Handle unconsumed products. Use SKU details for your needs.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onQueryInventorySucceeded</span><span class="o">(</span><span class="n">String</span> <span class="n">json</span><span class="o">,</span> <span class="n">IabResult</span> <span class="n">iabResult</span><span class="o">,</span> <span class="n">Inventory</span> <span class="n">inventory</span><span class="o">)</span> <span class="o">{</span>
@@ -261,11 +260,11 @@ receiving callbacks to the GPlayPurchasing method.</p>
 </div>
 </div>
 <div class="section" id="void-onqueryinventoryfailed-string-message">
-<h3>void onQueryInventoryFailed(String message)<a class="headerlink" href="#void-onqueryinventoryfailed-string-message" title="Permalink to this headline">¶</a></h3>
+<h4>void onQueryInventoryFailed(String message)<a class="headerlink" href="#void-onqueryinventoryfailed-string-message" title="Permalink to this headline">¶</a></h4>
 <p>Use the <strong>message</strong> parameter to find out the reason of fail.</p>
 </div>
 <div class="section" id="void-onpurchasesucceeded-string-message-iabresult-result-purchase-purchase">
-<h3>void onPurchaseSucceeded(String message, IabResult result, Purchase purchase)<a class="headerlink" href="#void-onpurchasesucceeded-string-message-iabresult-result-purchase-purchase" title="Permalink to this headline">¶</a></h3>
+<h4>void onPurchaseSucceeded(String message, IabResult result, Purchase purchase)<a class="headerlink" href="#void-onpurchasesucceeded-string-message-iabresult-result-purchase-purchase" title="Permalink to this headline">¶</a></h4>
 <p>Indicates succesful finish of the purchase flow.
 Use <strong>consumeProduct</strong> for <em>consumable</em> products, handle <em>unconsumable</em> ones</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
@@ -281,11 +280,11 @@ Use <strong>consumeProduct</strong> for <em>consumable</em> products, handle <em
 </div>
 </div>
 <div class="section" id="void-onpurchasefailed-string-message">
-<h3>void onPurchaseFailed(String message)<a class="headerlink" href="#void-onpurchasefailed-string-message" title="Permalink to this headline">¶</a></h3>
+<h4>void onPurchaseFailed(String message)<a class="headerlink" href="#void-onpurchasefailed-string-message" title="Permalink to this headline">¶</a></h4>
 <p>Use the <strong>message</strong> parameter to find out the reason of fail.</p>
 </div>
 <div class="section" id="void-onconsumepurchasesucceeded-string-message-iabresult-result-purchase-purchase">
-<h3>void onConsumePurchaseSucceeded(String message, IabResult result, Purchase purchase)<a class="headerlink" href="#void-onconsumepurchasesucceeded-string-message-iabresult-result-purchase-purchase" title="Permalink to this headline">¶</a></h3>
+<h4>void onConsumePurchaseSucceeded(String message, IabResult result, Purchase purchase)<a class="headerlink" href="#void-onconsumepurchasesucceeded-string-message-iabresult-result-purchase-purchase" title="Permalink to this headline">¶</a></h4>
 <p>Handle purchased and consumed products here.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onConsumePurchaseSucceeded</span><span class="o">(</span><span class="n">String</span> <span class="n">json</span><span class="o">,</span> <span class="n">IabResult</span> <span class="n">result</span><span class="o">,</span> <span class="n">Purchase</span> <span class="n">purchase</span><span class="o">)</span> <span class="o">{</span>
@@ -301,17 +300,10 @@ Use <strong>consumeProduct</strong> for <em>consumable</em> products, handle <em
 </div>
 </div>
 <div class="section" id="void-onconsumepurchasefailed-string-message">
-<h3>void onConsumePurchaseFailed(String message)<a class="headerlink" href="#void-onconsumepurchasefailed-string-message" title="Permalink to this headline">¶</a></h3>
+<h4>void onConsumePurchaseFailed(String message)<a class="headerlink" href="#void-onconsumepurchasefailed-string-message" title="Permalink to this headline">¶</a></h4>
 <p>Use the <strong>message</strong> parameter to find out the reason of fail. You can launch consume again or wait next <strong>queryInventory</strong>.</p>
 </div>
 </div>
-<div class="section" id="gplay-gameconsole">
-<h2>GPlay GameConsole<a class="headerlink" href="#gplay-gameconsole" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon..</p>
-</div>
-<div class="section" id="publication-your-game-to-gplay">
-<h2>Publication your game to GPlay<a class="headerlink" href="#publication-your-game-to-gplay" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon..</p>
 </div>
 <div class="section" id="configurations-and-set-up">
 <h2>Configurations and set up<a class="headerlink" href="#configurations-and-set-up" title="Permalink to this headline">¶</a></h2>

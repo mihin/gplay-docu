@@ -13,7 +13,7 @@ This is an Android library for inapp purchases in GPlay based on google inapp-bi
 
 
 Getting Started
----------------
+~~~~~~~~~~~~~~~~
 
 Download the latest **gc-android-sdk.aar** and import it to your Android application
 
@@ -171,13 +171,13 @@ To start Rate dialog for the current application use
 
 	
 Purchasing callbacks
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 IGPlayPurchaseCallback class methods
 
-**********************
+
 Activity getActivity()
-**********************
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Utilitary method, just return your foreground activity like in code
 
@@ -189,9 +189,9 @@ Utilitary method, just return your foreground activity like in code
 	}
 	
 	
-*************************
+
 void onBillingSupported()
-*************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Indicates successfull SDK initialization. The best place to **queryInventory** of your application.
 
@@ -203,16 +203,16 @@ Indicates successfull SDK initialization. The best place to **queryInventory** o
 		gStorePurchasing.queryInventory(skuList);
 	}
 	
-******************************************
+
 void onBillingNotSupported(String message)
-******************************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Handle this callback to prevent further initialization of components depending on purchases data. Use the **message** parameter to find out the reason of failed initializing
 
 
-***********************************************************************************
+
 void onQueryInventorySucceeded(String json, IabResult result, Inventory inventory)
-***********************************************************************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Go throw **inventory** to find out SKUs available for purchase, **SkuDetails** data, purchased unconsumed SKUs. Handle unconsumed products. Use SKU details for your needs.
 
@@ -237,16 +237,15 @@ Go throw **inventory** to find out SKUs available for purchase, **SkuDetails** d
 
 
 	
-*******************************************
 void onQueryInventoryFailed(String message)
-*******************************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Use the **message** parameter to find out the reason of fail.
 
 
-***********************************************************************************
+
 void onPurchaseSucceeded(String message, IabResult result, Purchase purchase)
-***********************************************************************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Indicates succesful finish of the purchase flow.
 Use **consumeProduct** for *consumable* products, handle *unconsumable* ones
@@ -266,16 +265,15 @@ Use **consumeProduct** for *consumable* products, handle *unconsumable* ones
 		
 		
 		
-*************************************
 void onPurchaseFailed(String message)
-*************************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Use the **message** parameter to find out the reason of fail.
 
 
-************************************************************************************
+
 void onConsumePurchaseSucceeded(String message, IabResult result, Purchase purchase)
-************************************************************************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Handle purchased and consumed products here.
 
@@ -293,27 +291,13 @@ Handle purchased and consumed products here.
 	}
 
 	
-********************************************
+
 void onConsumePurchaseFailed(String message)
-********************************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Use the **message** parameter to find out the reason of fail. You can launch consume again or wait next **queryInventory**.
 
 	
-
-	
-GPlay GameConsole
----------------------
-
-Coming soon..
-
-
-
-Publication your game to GPlay
---------------------------------
-
-Coming soon..
-
 
 Configurations and set up
 --------------------------
