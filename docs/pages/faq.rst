@@ -38,7 +38,7 @@ Realeasing your game to GPlay (DevConsole)
 
 *	-- What is a minimal price for an Inapp?
 	
-	-- Who knows..
+	-- Minimal price is 0.01$, use it to test your purchase logic before relaese.
 	
 	
 *	-- How can I test purchases without money?
